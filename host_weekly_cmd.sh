@@ -1,6 +1,6 @@
 #!/bin/bash --
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-# $Id:$
+# 2011, Jeremy Brand
 
 # TODO. no-op and display day of week that this host translates to for informational purposes.
 # TODO. usage().
