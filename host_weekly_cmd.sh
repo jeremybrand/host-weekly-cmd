@@ -1,6 +1,7 @@
 #!/bin/bash --
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 # 2011, Jeremy Brand
+# https://github.com/jeremybrand/host-weekly-cmd
 
 # TODO. no-op and display day of week that this host translates to for informational purposes.
 # TODO. usage().
