@@ -70,6 +70,8 @@ if [ "$host_mod" = "$TODAY_DIGIT" ]; then
 	else
 		exec $*
 	fi
+else
+	exit 0
 fi
 
 # because we got this far, it must be an error.
