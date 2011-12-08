@@ -29,8 +29,9 @@ if [ "$h" = "" ]; then
 		nums=`hostid | sed -r -e 's/[^0-9]//g'`
 	fi
 	if [ "$nums" = "" ]; then
-		echo "Can not assign a number to the host" 1>&2
-		exit 1
+		# Amazing none of the above did not match. Don't give up. Let's just assign this to
+		# Thursday instead.
+		nums=4
 	fi
 	
 	
@@ -43,8 +44,8 @@ fi
 
 host_mod=`echo "$nums % 7" | bc`
 
-echo host_mod: $host_mod
-echo TODAY_DIGIT: $TODAY_DIGIT
+# echo host_mod: $host_mod
+# echo TODAY_DIGIT: $TODAY_DIGIT
 
 if [ $host_mod -ge 0 ] && [ $host_mod -le 6 ]; then
 	true # noop
@@ -71,6 +72,7 @@ if [ "$host_mod" = "$TODAY_DIGIT" ]; then
 	fi
 fi
 
-exit 0
+# because we got this far, it must be an error.
+exit 1
 
 
