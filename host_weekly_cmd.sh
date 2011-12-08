@@ -2,6 +2,9 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 # $Id:$
 
+# TODO. no-op and display day of week that this host translates to for informational purposes.
+# TODO. usage().
+
 set +e
 
 HNAME=`hostname`
