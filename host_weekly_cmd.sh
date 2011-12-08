@@ -61,15 +61,15 @@ else
 	exit 1
 fi
 
+if [ "$*" = "" ]; then
+	echo "no command given on command line. Exit error." 1>&2
+	exit 1
+fi
+
 if [ "$host_mod" = "$TODAY_DIGIT" ]; then
 	# Do the command
 	echo running the command
-	if [ "$*" = "" ]; then
-		echo "no command give. Exit error." 1>&2
-		exit 1
-	else
-		exec $*
-	fi
+	exec $*
 else
 	exit 0
 fi
