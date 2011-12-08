@@ -25,7 +25,7 @@ Still straight forward, but not obvious. We strip non-digits out to get digits:
 
 	rack17node5.example.com
 
-	This will fire on day 0, because 175 mod 5 is 0. In cron, this is Sunday.
+	This will fire on day 0, because 175 mod 7 is 0. In cron, this is Sunday.
 
 Not straight forward, there are no digits. Let's calculate digits either from IP address, 
 or md5sum of hostname (not including domains), or old unix hostid -- else give up. This should be
