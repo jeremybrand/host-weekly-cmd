@@ -17,7 +17,10 @@ if [ "$h" = "" ]; then
 	# no number
 	nums=""
 	if [ "$nums" = "" ]; then
-		host $HNAME | grep $HNAME | sed -r -e 's/[^0-9]//g'
+		out=`host $HNAME`
+		if [ "$?" = "0" ]; then
+			nums=`echo $out | grep -v NXDOMAIN | grep $HNAME | sed -r -e 's/[^0-9]//g'`
+		fi
 	fi
 	if [ "$nums" = "" ]; then
 		nums=`echo $HNAME | openssl md5 | sed -r -e 's/[^0-9]//g'`
@@ -61,7 +64,8 @@ if [ "$host_mod" = "$TODAY_DIGIT" ]; then
 	# Do the command
 	echo running the command
 	if [ "$*" = "" ]; then
-		true # noop
+		echo "no command give. Exit error." 1>&2
+		exit 1
 	else
 		exec $*
 	fi

@@ -1,1 +1,59 @@
-Script designed for cron to evenly distribute tasks among hosts for weekly maintenance to large numbers of servers. Puppet/configuration management/script friendly.
+Script designed for cron to evenly distribute tasks among hosts for weekly
+maintenance to large numbers of servers. Puppet/configuration management/script
+friendly.
+
+The point of this is you have hundreds or thousands of drone machines and you want to 
+do weekly work but don't want them all do to the same thing on the same day. You don't
+want to have to program for this logic, you just want a simple identical entry
+you can script in puppet or other config management tool.
+
+If the hostname contains digits then the modulos of the digits are the day it will fire.
+
+Simple explanation:
+
+	node3.example.com
+
+	This will fire on day 3, because 3 mod 7 is 3. In cron, this is Wednesday.
+
+More complicated, but straight forward:
+
+	Jnode33.example.com
+
+	This will fire on day 5, because 33 mod 7 is 5. In cron, this is Friday.
+
+Still straight forward, but not obvious. We strip non-digits out to get digits:
+
+	rack17node5.example.com
+
+	This will fire on day 0, because 175 mod 5 is 0. In cron, this is Sunday.
+
+Not straight forward, there are no digits. Let's calculate digits either from IP address, 
+or md5sum of hostname (not including domains), or old unix hostid -- else give up. This should be
+practically impossible to not get a result.
+
+	rackZnodeA.example.com
+
+	This will fire on 3, which is Wednesday.
+
+	Explanation, but you don't have to care:
+	Since this is an example domain, thus the 1st check using DNS is
+	skipped since it does not resolve.  2nd, md5 of hostname is used and striped
+	of non digits.  The digits are mod 7 and the result is 3. (49951922885081458 %
+	7 = 3).  The 3rd and final check would have been to use 'hostid' if
+	either no DNS resolve or openssl md5 were not available.
+
+Finally, if there are no resolves we prefer to default to a particular day than not execute.
+We choose Thursday == day 4.
+
+
+Exit status of this script will be 1 if there is an error but this should never
+happen unless a command to run is not given. The script exec()s your command so
+actual exit status will be that of your command. You'll have to decide what and
+how you are going to check.
+	
+
+Cron example for a weekly reboot at midnight:
+
+0 0 * * *	/path/to/host_weekly_cmd.sh /sbin/reboot
+
+
