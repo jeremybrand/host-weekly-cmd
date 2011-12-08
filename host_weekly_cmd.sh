@@ -1,5 +1,9 @@
 #!/bin/bash --
-PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+# Include /bin:/usr/bin for standard tools this script needs and 
+# enherit user PATH for everything else afterwards.
+PATH=/bin:/usr/bin:$PATH
+
 # 2011, Jeremy Brand
 # https://github.com/jeremybrand/host-weekly-cmd
 
