@@ -17,7 +17,7 @@ Simple explanation:
 
 More complicated, but straight forward:
 
-	Jnode33.example.com
+	node33.example.com
 
 	This will fire on day 5, because 33 mod 7 is 5. In cron, this is Friday.
 
@@ -28,8 +28,9 @@ Still straight forward, but not obvious. We strip non-digits out to get digits:
 	This will fire on day 0, because 175 mod 7 is 0. In cron, this is Sunday.
 
 Not straight forward, there are no digits. Let's calculate digits either from IP address, 
-or md5sum of hostname (not including domains), or old unix hostid -- else give up. This should be
-practically impossible to not get a result.
+or md5sum of hostname (not including domains), or old unix hostid -- else
+assign static day (Thursday). This should be practically impossible to not get
+a result.
 
 	rackZnodeA.example.com
 
